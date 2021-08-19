@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="style.css" />
+    <title>Contact ME</title>
+  </head>
+  <body>
+    <form id="Contact">
+      <h3>Contact Me</h3>
+
+      <label for="name">Full Name</label>
+      <input type="text" id="name" name="name" required /><br />
+
+      <label for="email">Email</label>
+      <input type="email" id="email" name="email" required /><br />
+
+      <label for="subject">Subject</label>
+      <input type="text" id="subject" name="subject" required /><br />
+
+      <label for="message"> Message </label>
+      <textarea id="message" name="message" cols="30" rows="10"></textarea
+      ><br />
+      <button name="submit" id="submit">Send</button>
+    </form>
+    <script type="text/javascript">
+      const contactForm = document.getElementById("contact");
+      contactForm.addEventListener("submit", async function (event) {
+        event.preventDefault();
+        const name = document.getElementById("name").value;
+        const email = document.getElementById("email").value;
+        const subject = document.getElementById("subject").value;
+        const url = "http://localhost:4000/";
+        const message = document.getElementById("message").value;
+
+        const data = { name, email, subject, message };
+
+        const request = new Request(url, {
+            method: 'POST',
+            body: JSON.stringify(data),
+            headers: new Headers({
+                'Content-Type': 'application/json'
+            })
+        });
+        // Passing Request Object to fetch()
+        fetch(request)
+        .then((res) => res.json())
+        .then((res) => {
+            console.log(message)
+            alert(res.message)
+        }
+      })
+    </script>
+  </body>
+</html>
